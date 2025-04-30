@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
-import { Link, useNavigate } from "react-router-dom";
+import { data, Link, useNavigate } from "react-router-dom";
 
 import "./Login.css";
 import axios from "axios";
@@ -13,7 +13,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { backendURL } = useContext(AppContext);
+  const { backendURL, setIsLoggedIn } = useContext(AppContext);
   const navigate = useNavigate();
 
   const onSubmitHandler = async (e) => {
@@ -37,9 +37,21 @@ const Login = () => {
         }
       } else {
         //login
+        const response = await axios.post(`${backendURL}/login`, {
+          email,
+          password,
+        });
+        if (response.status === 200) {
+          setIsLoggedIn(true);
+          navigate("/");
+        } else {
+          toast.error("Email or password is incorrect.");
+        }
       }
     } catch (error) {
       toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
