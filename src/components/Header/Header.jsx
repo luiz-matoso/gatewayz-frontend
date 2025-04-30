@@ -14,14 +14,14 @@ const Header = () => {
         <span role="img" aria-label="wave">
           🖐️
         </span>
-        <h1 className="fw-bold display-5 mb-3">Welcome to our product.</h1>
-        <p className="text-muted fs-5 mb-4" style={{ maxWidth: "500px" }}>
-          Take a quick tour and get your authentication set up in just minutes!
-        </p>
-        <button className="btn btn-outline-dark rounded-pill px-4 py-2">
-          Set It Up
-        </button>
       </h5>
+      <h1 className="fw-bold display-5 mb-3">Welcome to our product.</h1>
+      <p className="text-muted fs-5 mb-4" style={{ maxWidth: "500px" }}>
+        Take a quick tour and get your authentication set up in just minutes!
+      </p>
+      <button className="btn btn-outline-dark rounded-pill px-4 py-2">
+        Set It Up
+      </button>
     </div>
   );
 };

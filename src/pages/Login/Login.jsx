@@ -1,11 +1,47 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Login.css";
+import axios from "axios";
+import { AppContext } from "../../context/AppContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [isCreateAccount, setIsCreateAccount] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { backendURL } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    axios.defaults.withCredentials = true;
+    setLoading(true);
+
+    try {
+      if (isCreateAccount) {
+        //sign up
+        const response = await axios.post(`${backendURL}/register`, {
+          name,
+          email,
+          password,
+        });
+        if (response.status === 201) {
+          navigate("/");
+          toast.success("Account create successfully");
+        } else {
+          toast.error("Email already exists.");
+        }
+      } else {
+        //login
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <div
@@ -44,7 +80,7 @@ const Login = () => {
         <h2 className="text-center mb-4">
           {isCreateAccount ? "Sign Up" : "Log In"}
         </h2>
-        <form>
+        <form onSubmit={onSubmitHandler}>
           {isCreateAccount && (
             <div className="mb-3">
               <label htmlFor="fullName" className="form-label">
@@ -56,6 +92,8 @@ const Login = () => {
                 className="form-control"
                 placeholder="Enter your full name"
                 required
+                onChange={(e) => setName(e.target.value)}
+                value={name}
               />
             </div>
           )}
@@ -69,6 +107,8 @@ const Login = () => {
               className="form-control"
               placeholder="Enter your email"
               required
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </div>
           <div className="mb-3">
@@ -81,6 +121,8 @@ const Login = () => {
               className="form-control"
               placeholder="Enter your password"
               required
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
           </div>
           <div className="d-flex justify-content-between mb-3">
@@ -89,8 +131,12 @@ const Login = () => {
             </Link>
           </div>
 
-          <button type="submit" className="btn btn-grad text-white w-100">
-            {isCreateAccount ? "Sign Up" : "Login"}
+          <button
+            type="submit"
+            className="btn btn-grad text-white w-100"
+            disabled={loading}
+          >
+            {loading ? "Loading..." : isCreateAccount ? "Sign Up" : "Login"}
           </button>
         </form>
 
