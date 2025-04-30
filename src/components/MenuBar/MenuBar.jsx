@@ -8,7 +8,7 @@ const MenuBar = () => {
   return (
     <nav className="navbar bg-white px-5 py-4 d-flex justify-content-between align-items-center">
       <div className="d-flex align-items-center gap-2">
-        <img src={assets.logo_home} alt="logo" width={32} height={32} />
+        <img src={assets.logo} alt="logo" width={32} height={32} />
         <span className="fw-bold fs-4 text-dark">GateWayz</span>
       </div>
       <div
