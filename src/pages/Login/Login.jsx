@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
 
 import "./Login.css";
 
 const Login = () => {
+  const [isCreateAccount, setIsCreateAccount] = useState(false);
+
   return (
     <div
       className="position-relative min-vh-100 d-flex justify-content-center align-items-center"
@@ -39,8 +41,24 @@ const Login = () => {
       </div>
 
       <div className="card p-4" style={{ maxWidth: "400px", width: "100%" }}>
-        <h2 className="text-center mb-4">Login</h2>
+        <h2 className="text-center mb-4">
+          {isCreateAccount ? "Sign Up" : "Log In"}
+        </h2>
         <form>
+          {isCreateAccount && (
+            <div className="mb-3">
+              <label htmlFor="fullName" className="form-label">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="fullName"
+                className="form-control"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+          )}
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email
@@ -72,9 +90,37 @@ const Login = () => {
           </div>
 
           <button type="submit" className="btn btn-grad text-white w-100">
-            Login
+            {isCreateAccount ? "Sign Up" : "Login"}
           </button>
         </form>
+
+        <div className="text-center mt-3">
+          <p className="mb-0">
+            {isCreateAccount ? (
+              <>
+                Already have an account?{" "}
+                <span
+                  onClick={() => setIsCreateAccount(false)}
+                  className="text-decoration-underline"
+                  style={{ cursor: "pointer" }}
+                >
+                  Log In
+                </span>
+              </>
+            ) : (
+              <>
+                Don't have an account?{" "}
+                <span
+                  onClick={() => setIsCreateAccount(true)}
+                  className="text-decoration-underline"
+                  style={{ cursor: "pointer" }}
+                >
+                  Sign Up
+                </span>
+              </>
+            )}
+          </p>
+        </div>
       </div>
     </div>
   );
