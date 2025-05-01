@@ -64,30 +64,13 @@ const Login = () => {
         border: "none",
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "30px",
-          display: "flex",
-          alignItems: "center",
-        }}
+      <Link
+        to="/"
+        className="position-absolute top-0 start-0 p-4 d-flex align-items-center gap-2 text-decoration-none"
       >
-        <Link
-          to="/"
-          style={{
-            display: "flex",
-            gap: 5,
-            alignItems: "center",
-            fontWeight: "bold",
-            fontSize: "24px",
-            textDecoration: "none",
-          }}
-        >
-          <img src={assets.logo_white} alt="" width={32} height={32} />
-          <span className="fw-bold fs-4 text-light">GateWayz</span>
-        </Link>
-      </div>
+        <img src={assets.logo_white} alt="" width={32} height={32} />
+        <span className="fw-bold fs-4 text-light">GateWayz</span>
+      </Link>
 
       <div className="card p-4" style={{ maxWidth: "400px", width: "100%" }}>
         <h2 className="text-center mb-4">
