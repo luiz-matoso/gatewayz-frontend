@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../../assets/assets";
 import { AppContext } from "../../context/AppContext";
 
-import "./EmailVerify.css";
+import "../../styles/global.css";
+
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -104,7 +105,7 @@ const EmailVerify = () => {
         </div>
 
         <button
-          className="btn btn-grad text-white w-100 fw-semibold"
+          className="btn btnGrad text-white w-100 fw-semibold"
           disabled={loading}
           onClick={handleVerify}
         >

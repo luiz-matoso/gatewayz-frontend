@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
 import { data, Link, useNavigate } from "react-router-dom";
 
-import "./Login.css";
+import "../../styles/global.css";
+
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
 import { toast } from "react-toastify";
@@ -129,7 +130,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="btn btn-grad text-white w-100"
+            className="btn btnGrad text-white w-100"
             disabled={loading}
           >
             {loading ? "Loading..." : isCreateAccount ? "Sign Up" : "Login"}

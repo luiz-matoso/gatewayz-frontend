@@ -4,7 +4,8 @@ import { assets } from "../../assets/assets";
 import { AppContext } from "../../context/AppContext";
 import axios from "axios";
 
-import "./ResetPassword.css";
+import "../../styles/global.css";
+
 import { toast } from "react-toastify";
 
 const ResetPassword = () => {
@@ -140,7 +141,7 @@ const ResetPassword = () => {
               />
             </div>
             <button
-              className="btn btn-grad text-white w-100 py-2"
+              className="btn btnGrad text-white w-100 py-2"
               type="submit"
               disabled={loading}
             >
@@ -177,7 +178,7 @@ const ResetPassword = () => {
           </div>
 
           <button
-            className="btn btn-grad text-white w-100 fw-semibold"
+            className="btn btnGrad text-white w-100 fw-semibold"
             disabled={loading}
             onClick={handleVerify}
           >
@@ -211,7 +212,7 @@ const ResetPassword = () => {
             </div>
             <button
               type="submit"
-              className="btn btn-grad w-100"
+              className="btn btnGrad w-100"
               disabled={loading}
             >
               {loading ? "Loading..." : "Submit"}

@@ -1,0 +1,21 @@
+/* global.css */
+.btnGrad {
+  background-image: linear-gradient(
+    to right,
+    #8360c3 0%,
+    #2ebf91 51%,
+    #8360c3 100%
+  ) !important;
+  transition: background-position 0.5s ease-in-out !important;
+  background-size: 200% auto !important;
+  color: white !important;
+  box-shadow: 0 0 20px #eee !important;
+  border-radius: 10px !important;
+  display: block !important;
+}
+
+.btnGrad:hover {
+  background-position: right center !important;
+  color: #fff !important;
+  text-decoration: none !important;
+}
