@@ -122,11 +122,13 @@ const Login = () => {
               value={password}
             />
           </div>
-          <div className="d-flex justify-content-between mb-3">
-            <Link to="/reset-password" className="text-decoration-none">
-              Forgot password?
-            </Link>
-          </div>
+          {!isCreateAccount && (
+            <div className="d-flex justify-content-between mb-3">
+              <Link to="/reset-password" className="text-decoration-none">
+                Forgot password?
+              </Link>
+            </div>
+          )}
 
           <button
             type="submit"
