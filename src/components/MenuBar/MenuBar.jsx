@@ -1,13 +1,40 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { assets } from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const MenuBar = () => {
   const navigate = useNavigate();
-  const { userData } = useContext(AppContext);
+  const { userData, backendURL, setUserData, setIsLoggedIn } =
+    useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutsite = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutsite);
+    return () => document.removeEventListener("mousedown", handleClickOutsite);
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const response = await axios.post(backendURL + "/logout");
+      if (response.status === 200) {
+        setIsLoggedIn(false);
+        setUserData(false);
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <nav className="navbar bg-white px-5 py-4 d-flex justify-content-between align-items-center">
@@ -48,6 +75,7 @@ const MenuBar = () => {
               <div
                 className="dropdown-item text-danger py-1 px-2"
                 style={{ cursor: "pointer" }}
+                onClick={handleLogout}
               >
                 Log out
               </div>
