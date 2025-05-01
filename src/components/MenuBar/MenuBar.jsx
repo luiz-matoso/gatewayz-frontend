@@ -36,6 +36,21 @@ const MenuBar = () => {
     }
   };
 
+  const sendVerificationOtp = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+      const response = await axios.post(backendURL + "/send-otp");
+      if (response.status === 200) {
+        navigate("/email-verify");
+        toast.success("OTP has been sent successfully.");
+      } else {
+        toast.error("Unable to send OTP.");
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <nav className="navbar bg-white px-5 py-4 d-flex justify-content-between align-items-center">
       <div className="d-flex align-items-center gap-2">
@@ -68,6 +83,7 @@ const MenuBar = () => {
                 <div
                   className="dropdown-item py-1 px-2"
                   style={{ cursor: "pointer" }}
+                  onClick={sendVerificationOtp}
                 >
                   Verify email
                 </div>

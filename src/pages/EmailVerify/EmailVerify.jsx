@@ -5,6 +5,7 @@ import { AppContext } from "../../context/AppContext";
 
 import "./EmailVerify.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const EmailVerify = () => {
   const inputRef = useRef([]);
@@ -91,7 +92,7 @@ const EmailVerify = () => {
               maxLength={1}
               className="form-control text-center fs-4 otp-input"
               ref={(el) => (inputRef.current[i] = el)}
-              onChange={() => handleChange(e, i)}
+              onChange={(e) => handleChange(e, i)}
               onKeyDown={(e) => handleKeyDown(e, i)}
               onPaste={handlePaste}
             />
