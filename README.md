@@ -1,4 +1,4 @@
-# 🎓 Sistema de Autenticação | Authentication System
+# 🔐 Frontend - Sistema de Autenticação | Authentication System
 
 **🇧🇷 Português** | **🇺🇸 English**
 
