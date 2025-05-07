@@ -2,8 +2,13 @@ import React, { useContext } from "react";
 import { assets } from "../../assets/assets";
 import { AppContext } from "../../context/AppContext";
 
+import "../../i18n";
+import { useTranslation } from "react-i18next";
+
 const Header = () => {
   const { userData } = useContext(AppContext);
+
+  const { t, i18n } = useTranslation();
 
   return (
     <div
@@ -13,17 +18,17 @@ const Header = () => {
       <img src={assets.header} alt="header" width={120} />
 
       <h5 className="fw-semibold">
-        Hey, {userData ? userData.name : "Developer"}
+        {t("hey")} {userData ? userData.name : t("developer")}
         <span role="img" aria-label="wave">
           🖐️
         </span>
       </h5>
-      <h1 className="fw-bold display-5 mb-3">Welcome to our product.</h1>
+      <h1 className="fw-bold display-5 mb-3">{t("welcome")}</h1>
       <p className="text-muted fs-5 mb-4" style={{ maxWidth: "500px" }}>
-        Take a quick tour and get your authentication set up in just minutes!
+        {t("description")}
       </p>
       <button className="btn btn-outline-dark rounded-pill px-4 py-2">
-        Set It Up
+        {t("setItUp")}
       </button>
     </div>
   );

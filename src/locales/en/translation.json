@@ -1,0 +1,21 @@
+{
+  "hey": "Hey, ",
+  "developer": "Developer",
+  "welcome": "Welcome to our product.",
+  "description": "Take a quick tour and get your authentication set up in just minutes!",
+  "setItUp": "Set It Up",
+  "login": "Login",
+  "loginPage": "Log In",
+  "signUpPage": "Sign Up",
+  "fullName": "Full Name",
+  "password": "Password",
+  "alreadyHaveAccount": "Already have an account?",
+  "dontHaveAccount": "Don't have an account?",
+  "forgotPassword": "Fogot password?",
+  "loading": "Loading...",
+  "placeholder": {
+    "fullName": "Enter your full name",
+    "email": "Enter your email",
+    "password": "Enter your password"
+  }
+}

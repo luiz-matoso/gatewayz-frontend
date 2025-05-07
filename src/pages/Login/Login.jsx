@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { assets } from "../../assets/assets";
 import { data, Link, useNavigate } from "react-router-dom";
 
@@ -7,6 +7,7 @@ import "../../styles/global.css";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [isCreateAccount, setIsCreateAccount] = useState(false);
@@ -16,6 +17,15 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const { backendURL, setIsLoggedIn, getUserData } = useContext(AppContext);
   const navigate = useNavigate();
+
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const langDropdownRef = useRef(null);
+
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -57,6 +67,19 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutsite = (event) => {
+      if (
+        langDropdownRef.current &&
+        !langDropdownRef.current.contains(event.target)
+      ) {
+        setLangDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutsite);
+    return () => document.removeEventListener("mousedown", handleClickOutsite);
+  }, []);
+
   return (
     <div
       className="position-relative min-vh-100 d-flex justify-content-center align-items-center"
@@ -73,21 +96,59 @@ const Login = () => {
         <span className="fw-bold fs-4 text-light">GateWayz</span>
       </Link>
 
+      <div className="position-absolute top-0 end-0 p-4" ref={langDropdownRef}>
+        <div
+          className="bg-light text-dark rounded-circle d-flex justify-content-center align-items-center border"
+          style={{
+            width: "40px",
+            height: "40px",
+            cursor: "pointer",
+            userSelect: "none",
+          }}
+          onClick={() => {
+            setLangDropdownOpen((prev) => !prev);
+          }}
+        >
+          <i className="bi bi-translate"></i>
+        </div>
+        {langDropdownOpen && (
+          <div
+            className="position-absolute shadow bg-white rounded p-2"
+            style={{ top: "60px", right: "30px", zIndex: 100 }}
+          >
+            <div
+              className="dropdown-item py-1 px-2"
+              style={{ cursor: "pointer" }}
+              onClick={() => changeLanguage("en")}
+            >
+              English
+            </div>
+            <div
+              className="dropdown-item py-1 px-2"
+              style={{ cursor: "pointer" }}
+              onClick={() => changeLanguage("pt")}
+            >
+              Português
+            </div>
+          </div>
+        )}
+      </div>
+
       <div className="card p-4" style={{ maxWidth: "400px", width: "100%" }}>
         <h2 className="text-center mb-4">
-          {isCreateAccount ? "Sign Up" : "Log In"}
+          {isCreateAccount ? t("signUpPage") : t("loginPage")}
         </h2>
         <form onSubmit={onSubmitHandler}>
           {isCreateAccount && (
             <div className="mb-3">
               <label htmlFor="fullName" className="form-label">
-                Full Name
+                {t("fullName")}
               </label>
               <input
                 type="text"
                 id="fullName"
                 className="form-control"
-                placeholder="Enter your full name"
+                placeholder={t("placeholder.fullName")}
                 required
                 onChange={(e) => setName(e.target.value)}
                 value={name}
@@ -102,7 +163,7 @@ const Login = () => {
               type="text"
               id="email"
               className="form-control"
-              placeholder="Enter your email"
+              placeholder={t("placeholder.email")}
               required
               onChange={(e) => setEmail(e.target.value)}
               value={email}
@@ -110,13 +171,13 @@ const Login = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="form-label">
-              Password
+              {t("password")}
             </label>
             <input
               type="password"
               id="password"
               className="form-control"
-              placeholder="Enter your password"
+              placeholder={t("placeholder.password")}
               required
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -125,7 +186,7 @@ const Login = () => {
           {!isCreateAccount && (
             <div className="d-flex justify-content-between mb-3">
               <Link to="/reset-password" className="text-decoration-none">
-                Forgot password?
+                {t("forgotPassword")}
               </Link>
             </div>
           )}
@@ -135,7 +196,11 @@ const Login = () => {
             className="btn btnGrad text-white w-100"
             disabled={loading}
           >
-            {loading ? "Loading..." : isCreateAccount ? "Sign Up" : "Login"}
+            {loading
+              ? t("loading")
+              : isCreateAccount
+              ? t("signUpPage")
+              : t("loginPage")}
           </button>
         </form>
 
@@ -143,24 +208,24 @@ const Login = () => {
           <p className="mb-0">
             {isCreateAccount ? (
               <>
-                Already have an account?{" "}
+                {t("alreadyHaveAccount")}{" "}
                 <span
                   onClick={() => setIsCreateAccount(false)}
                   className="text-decoration-underline"
                   style={{ cursor: "pointer" }}
                 >
-                  Log In
+                  {t("login")}
                 </span>
               </>
             ) : (
               <>
-                Don't have an account?{" "}
+                {t("dontHaveAccount")}{" "}
                 <span
                   onClick={() => setIsCreateAccount(true)}
                   className="text-decoration-underline"
                   style={{ cursor: "pointer" }}
                 >
-                  Sign Up
+                  {t("signUpPage")}
                 </span>
               </>
             )}

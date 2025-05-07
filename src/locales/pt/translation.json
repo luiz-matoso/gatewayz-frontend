@@ -1,0 +1,21 @@
+{
+  "hey": "Ei, ",
+  "developer": "Desenvolvedor",
+  "welcome": "Bem-vindo ao nosso produto.",
+  "description": "Faça um tour rápido e configure sua autenticação em poucos minutos!",
+  "setItUp": "Começar agora",
+  "login": "Entrar",
+  "loginPage": "Entrar",
+  "signUpPage": "Registre-se",
+  "fullName": "Nome Completo",
+  "password": "Senha",
+  "alreadyHaveAccount": "Já possui uma conta?",
+  "dontHaveAccount": "Não possui uma conta?",
+  "forgotPassword": "Esqueceu a senha?",
+  "loading": "Carregando...",
+  "placeholder": {
+    "fullName": "Insira seu nome completo",
+    "email": "Insira seu email",
+    "password": "Insira sua senha"
+  }
+}
