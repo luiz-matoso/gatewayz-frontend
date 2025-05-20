@@ -7,6 +7,7 @@ import "../../styles/global.css";
 
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const EmailVerify = () => {
   const inputRef = useRef([]);
@@ -14,6 +15,15 @@ const EmailVerify = () => {
   const { getUserData, isLoggedIn, userData, backendURL } =
     useContext(AppContext);
   const navigate = useNavigate();
+
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const langDropdownRef = useRef(null);
+
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const handleChange = (e, index) => {
     const value = e.target.value.replace(/\D/, "");
@@ -67,6 +77,19 @@ const EmailVerify = () => {
     isLoggedIn && userData && userData.isAccountVerified && navigate("/");
   }, [isLoggedIn, userData]);
 
+  useEffect(() => {
+    const handleClickOutsite = (event) => {
+      if (
+        langDropdownRef.current &&
+        !langDropdownRef.current.contains(event.target)
+      ) {
+        setLangDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutsite);
+    return () => document.removeEventListener("mousedown", handleClickOutsite);
+  }, []);
+
   return (
     <div
       className="email-verify-container d-flex align-items-center justify-content-center min-vh-100 position-relative"
@@ -83,11 +106,47 @@ const EmailVerify = () => {
         <span className="fs-4 fw-bold text-light">GateWayz</span>
       </Link>
 
+      <div className="position-absolute top-0 end-0 p-4" ref={langDropdownRef}>
+        <div
+          className="bg-light text-dark rounded-circle d-flex justify-content-center align-items-center border"
+          style={{
+            width: "40px",
+            height: "40px",
+            cursor: "pointer",
+            userSelect: "none",
+          }}
+          onClick={() => {
+            setLangDropdownOpen((prev) => !prev);
+          }}
+        >
+          <i className="bi bi-translate"></i>
+        </div>
+        {langDropdownOpen && (
+          <div
+            className="position-absolute shadow bg-white rounded p-2"
+            style={{ top: "60px", right: "30px", zIndex: 100 }}
+          >
+            <div
+              className="dropdown-item py-1 px-2"
+              style={{ cursor: "pointer" }}
+              onClick={() => changeLanguage("en")}
+            >
+              English
+            </div>
+            <div
+              className="dropdown-item py-1 px-2"
+              style={{ cursor: "pointer" }}
+              onClick={() => changeLanguage("pt")}
+            >
+              Português
+            </div>
+          </div>
+        )}
+      </div>
+
       <div className="p-5 rounded-4 shadow bg-white" style={{ width: "400px" }}>
-        <h4 className="text-center fw-bold mb-2">Verify OTP</h4>
-        <p className="text-center mb-4">
-          Enter 6-digit code sent to your email.
-        </p>
+        <h4 className="text-center fw-bold mb-2">{t("verifyOtp")}</h4>
+        <p className="text-center mb-4">{t("6digitText")}</p>
 
         <div className="d-flex justify-content-between gap-2 mb-4 text-center text-white-50 mb-2">
           {[...Array(6)].map((_, i) => (
@@ -109,7 +168,7 @@ const EmailVerify = () => {
           disabled={loading}
           onClick={handleVerify}
         >
-          {loading ? "Verifying..." : "Verify email"}
+          {loading ? t("verifying") : t("verifyEmail")}
         </button>
       </div>
     </div>

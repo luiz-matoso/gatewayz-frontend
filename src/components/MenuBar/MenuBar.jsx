@@ -103,7 +103,7 @@ const MenuBar = () => {
                     style={{ cursor: "pointer" }}
                     onClick={sendVerificationOtp}
                   >
-                    Verify email
+                    {t("verifyEmail")}
                   </div>
                 )}
                 <div
@@ -111,7 +111,7 @@ const MenuBar = () => {
                   style={{ cursor: "pointer" }}
                   onClick={handleLogout}
                 >
-                  Log out
+                  {t("logout")}
                 </div>
               </div>
             )}

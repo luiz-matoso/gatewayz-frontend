@@ -17,5 +17,11 @@
     "fullName": "Enter your full name",
     "email": "Enter your email",
     "password": "Enter your password"
-  }
+  },
+  "wrongCredentials": "Email or password is is incorrect.",
+  "verifyEmail": "Verify email",
+  "logout": "Log out",
+  "6digitText": "Enter 6-digit code sent to your email.",
+  "verifyOtp": "Verify OTP",
+  "verifying": "Verifying..."
 }
